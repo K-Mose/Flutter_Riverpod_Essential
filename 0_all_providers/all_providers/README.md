@@ -1,7 +1,7 @@
 # all_providers
 
 **riverpod의 9가지 Provider**
-1. Provider
+1. [Provider](#provider)
 2. StateProvider
 3. StateNotifierProvider
 4. ChangeNotifierProvider
@@ -28,7 +28,7 @@ ref
 - listen : dialog, navigating같은 액션이 필요한 state
 - read : 값 변경이 필요없는 state
 
-## Provider
+## <a id="provider"/> 1. Provider
 - `Provider`는 riverpod에서 제공히는 provider들 중에서 가장 기본 
 - `Provider`는 값을 생성함(생성밖에 못함)
 - 기본적인 용도는 위젯이나 다른 `Provider`에게 값을 제공
@@ -49,3 +49,17 @@ final helloProvider = Provider<String>((ref) {
 ref, 다른 Provider에 접근하거나 Provider를 Dispose 시키는 등 다양한 작업
 > Provider Package와 차이점: Provier는 위젯으로 항상 위젯트리 내에서만 존재. Riverpod의 Provider는 위젯이 아닌 dart object로 global final variable로 선언, 앱을 `ProviderScope`로 감쌈. dart object이므로 flutter 외 dart에서도 사용 가능
 > 사용하는 Provider를 변경하면 제공하는 Provider가 달라져 앱에서 상태 값에 접근하고 상호작용 하는 방법이 달라짐
+
+### autoDispose
+```dart
+final autoDisposeHelloProvider = Provider.autoDispose<String>((ref)  {
+  print('[autoDisposeHelloProvider]:: created');
+  ref.onDispose(() {
+    print('[autoDisposeHelloProvider]:: disposed');
+  });
+  return 'Hello';
+});
+```
+provider를 `Provider.autoDispose`로 생성시키면 해당 상태를 사용하는 widget, provider가 없으면 자동으로 dispose하고 사용하면 create 한다.
+
+-> 자주 바뀌는 상태에서는 괜찮지만 상태를 계속 유지해야 하는 `Provider`에서는 좋지 않다 
