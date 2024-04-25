@@ -77,3 +77,26 @@ final familyHelloProvider = Provider.family<String, String>((ref, name) {
 name으로 주어지는 변수에 따라서 출력값이 딸라진다.
 Provider.family<T, R> : T는 반환 타입, R은 아규먼트로 받는 타입.
 `ref.watch(familyHelloProvider('Jane'));`와 같이 값을 주어 호출한다.
+
+### autoDispose + family
+각 modifier를 연속으로 호출하여 사용한다.
+사용은 family와 같으며 autoDispose의 기능이 사용된다.
+```dart
+final autoDisPoseFamilyHelloProvider =
+    Provider.autoDispose.family<String, String>((ref, name) {
+  print('[autoDisPoseFamilyHelloProvider($name)]:: created');
+  ref.onDispose(() {
+    print('[autoDisPoseFamilyHelloProvider($name)]:: disposed');
+  });
+  return 'Hello $name';
+});
+```
+
+```dart
+    final helloJohn = ref.watch(autoDisPoseFamilyHelloProvider('John'));
+    final helloJane = ref.watch(autoDisPoseFamilyHelloProvider('John'));
+```
+같은 값을 받는 Provider를 호출하게 된다면 Provider는 같은 객체로 보고 하나만 출력한다.
+```text
+I/flutter ( 6107): [autoDisPoseFamilyHelloProvider(John)]:: created
+```
