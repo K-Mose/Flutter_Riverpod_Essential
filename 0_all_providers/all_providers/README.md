@@ -16,6 +16,7 @@
 - autoDispose
 - family 
 - autoDispose + family
+![](../../imgs/provider_modifiers.png)
 
 ## Provider
 - `Provider`는 riverpod에서 제공히는 provider들 중에서 가장 기본 
