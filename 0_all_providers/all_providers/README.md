@@ -1,6 +1,6 @@
 # all_providers
 
-riverpod의 9가지 Provider
+**riverpod의 9가지 Provider**
 1. Provider
 2. StateProvider
 3. StateNotifierProvider
@@ -10,6 +10,12 @@ riverpod의 9가지 Provider
 7. FutureProvider
 8. StreamProvider
 9. StreamNotifierProvider
+
+**Provider Modifiers**
+- none
+- autoDispose
+- family 
+- autoDispose + family
 
 ## Provider
 - `Provider`는 riverpod에서 제공히는 provider들 중에서 가장 기본 
