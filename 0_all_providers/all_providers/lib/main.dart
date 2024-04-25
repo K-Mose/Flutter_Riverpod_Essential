@@ -41,7 +41,7 @@ class MyHomePage extends StatelessWidget {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) => const ProviderScreen(),));
                     },
-                    child: const Text("Lecture #0 TweenColor")
+                    child: const Text("Lecture #1 Provider")
                 ),
               ],
             ),
