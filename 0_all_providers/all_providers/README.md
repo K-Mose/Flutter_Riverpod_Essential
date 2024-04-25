@@ -62,4 +62,18 @@ final autoDisposeHelloProvider = Provider.autoDispose<String>((ref)  {
 ```
 provider를 `Provider.autoDispose`로 생성시키면 해당 상태를 사용하는 widget, provider가 없으면 자동으로 dispose하고 사용하면 create 한다.
 
--> 자주 바뀌는 상태에서는 괜찮지만 상태를 계속 유지해야 하는 `Provider`에서는 좋지 않다 
+-> 자주 바뀌는 상태에서는 괜찮지만 상태를 계속 유지해야 하는 `Provider`에서는 좋지 않다
+
+### family
+주어진 아규먼트에 따라서 갑이 바뀌는 Provider를 제공할 때 사용
+```dart
+final familyHelloProvider = Provider.family<String, String>((ref, name) {
+  ref.onDispose(() {
+    print('[familyHelloProvider($name)]:: disposed');
+  });
+  return 'Hello $name';
+});
+```
+name으로 주어지는 변수에 따라서 출력값이 딸라진다.
+Provider.family<T, R> : T는 반환 타입, R은 아규먼트로 받는 타입.
+`ref.watch(familyHelloProvider('Jane'));`와 같이 값을 주어 호출한다.
