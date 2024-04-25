@@ -100,3 +100,35 @@ final autoDisPoseFamilyHelloProvider =
 ```text
 I/flutter ( 6107): [autoDisPoseFamilyHelloProvider(John)]:: created
 ```
+
+### Passing Object Parameter to Family Modifier
+`family`는 아규먼트로 하나 밖에 받지 못한다. 객체를 전달함으로 문제를 해결한다.
+`family`는 외부 파라메터를 기반으로 유니크한 값을 만들기 때문에 전달될 파라메터는 `hasCode`와 `equality`가 override 돼야한다.
+
+따라서 `family`의 파라메터의 타입은 Primitive 타입이거나 hasCode`와 `equality`가 override 된 immutable object 이어야 한다.
+```dart
+class Counter extends Equatable {
+  final int count;
+
+  const Counter({
+    required this.count,
+  });
+
+  @override
+  List<Object> get props => [count];
+
+  @override
+  String toString() {
+    return 'Counter{count: $count}';
+  }
+}
+
+final counterProvider = Provider.autoDispose.family<int, Counter>((ref,
+    Counter c) {
+  ref.onDispose(() {
+    print('[counterProvider($c)]:: disposed');
+  });
+
+  return c.count;
+},);
+```
