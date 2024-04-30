@@ -162,3 +162,27 @@ String hello(HelloRef ref) {
 }
 ```
 > `dart run build_runner run`으로 생성, `dart run build_runner watch -d`로 변경사항 자동 적용 가능
+
+**@Riverpod vs @riverpod**
+```dart
+const riverpod = Riverpod();
+
+Riverpod({
+  bool keepAlive = false,
+  List<Object>? dependencies,
+});
+```
+@riverpod은 KeepAlive가 false고 dependencies가 null인 것과 동일.
+앱에서 필요하지 않을 경우 dispose
+즉, autoDispose는 @riverpod, 이외는 @Riverpod(keepAlive=True)
+
+※ `family Provider` 생성 시 주의점
+Argument로는 `name`을 사용해서는 안됨 
+```dart
+/// See also [familyHello].
+class FamilyHelloProvider extends Provider<String> {
+  // ...
+  final String myName;
+  // ...
+}
+```
