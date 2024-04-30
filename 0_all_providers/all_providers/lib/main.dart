@@ -1,4 +1,5 @@
 import 'package:all_providers/providers/provider/home.dart';
+import 'package:all_providers/providers/state_provider/state_provider_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -42,6 +43,13 @@ class MyHomePage extends StatelessWidget {
                         builder: (context) => const ProviderScreen(),));
                     },
                     child: const Text("Lecture #1 Provider")
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const StateProviderScreen(),));
+                    },
+                    child: const Text("Lecture #2 StateProvider")
                 ),
               ],
             ),

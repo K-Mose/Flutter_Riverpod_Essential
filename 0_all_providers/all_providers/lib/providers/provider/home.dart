@@ -4,7 +4,7 @@ import 'package:all_providers/providers/provider/pages/auto_dispose/auto_dispose
 import 'package:all_providers/providers/provider/pages/auto_dispose_family/auto_dispose_family_page.dart';
 import 'package:all_providers/providers/provider/pages/basic/basic_page.dart';
 import 'package:all_providers/providers/provider/pages/family/family_page.dart';
-import 'package:all_providers/providers/provider/widgets/custom_button.dart';
+import 'package:all_providers/widgets/custom_button.dart';
 
 class ProviderScreen extends StatelessWidget {
   const ProviderScreen({super.key});
