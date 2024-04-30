@@ -132,3 +132,33 @@ final counterProvider = Provider.autoDispose.family<int, Counter>((ref,
   return c.count;
 },);
 ```
+
+## Code Generation - riverpod_generator
+장점 
+1. 문법, 가독성 향상, 코드작성 유연성 증대, 학습이 쉬움
+2. 어떤 proiver를 사용할지 걱정 없이 코드를 작성하면 Riverpod이 알맞은 provider로 생성해줌
+3. 문법이 global variable을 사용하는 것 처럼 보이지 않음, 대신 커스텀 function/class를 정의 
+4. 기존 parameter 전달에서 있던 제약사항이 사라짐. positional, named, optional, default value 사용 가능
+5. 앱 개발중 **stateful hot-reload** 사용 가능 
+6. Extra Metadata를 생성하여 디버깅 지원
+7. code generation을 통해서만 사용 가능한 기능들이 있음. (Lint의 지원 범위가 넓어짐)
+
+
+### 방식 비교
+```dart
+// Provider를 직접 생성
+// 사용하는 Provider의 종류를 명시
+final helloProvider = Provider<String>((ref) {
+  return 'Hello';
+});
+
+// 함수를 생성하면 어노테이션으로 Provider가 생성됨
+// ~_provider.g.dart 파일에서 HelloRef의 프로바이더를 자동 생성함
+// 반환하는 값을 보고 riverpod_generator가 
+// 사용하는 값의 타입을 지정하지 않고 반환 타입을 보고 지정됨 
+@Riverpod(keepAlive: true)
+String hello(HelloRef ref) {
+  return 'Hello';
+}
+```
+> `dart run build_runner run`으로 생성, `dart run build_runner watch -d`로 변경사항 자동 적용 가능
