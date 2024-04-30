@@ -10,3 +10,6 @@
 7. FutureProvider
 8. StreamProvider
 9. StreamNotifierProvider
+
+
+### [ref.read를 지양해야 하는 이유](https://github.com/rrousselGit/riverpod/issues/321)

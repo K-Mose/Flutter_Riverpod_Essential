@@ -7,7 +7,7 @@ class BasicPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // setState() or markNeedsBuild() called during build.
+    /*// setState() or markNeedsBuild() called during build.
     // 에러 해결책
     // 1. WidgetsBinding.instance.addPostFrameCallback((s) {});
     // 2. Future.delaye(const Duration(second: 0), () {});
@@ -33,7 +33,8 @@ class BasicPage extends ConsumerWidget {
         // });
       }
     });
-    final value = ref.watch(counterProvider);
+    final value = ref.watch(counterProvider);*/
+    final value = ref.watch(ageProvider);
 
     return Scaffold(
       appBar: AppBar(
