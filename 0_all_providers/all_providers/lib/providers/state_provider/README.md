@@ -46,3 +46,8 @@ String age(Ref ref) {
   return "Hi! I'm $age years old";
 }
 ```
+
+### AutoDispose 
+Provider -> Provider를, autoDisposeProvider는 autoDisposeProvider를 의존해야 한다.
+Provider -> autoDisposeProvider 또는 autoDisposeProvider -> Provider 의존하게되면 아래와 같은 에러가 발생한다.
+`Error: The argument type 'AutoDisposeStateProvider<int>' can't be assigned to the parameter type 'AlwaysAliveProviderListenable<dynamic>'.`
