@@ -1,3 +1,4 @@
+import 'package:all_providers/providers/future_provider/home.dart';
 import 'package:all_providers/providers/provider/home.dart';
 import 'package:all_providers/providers/state_provider/state_provider_screen.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,13 @@ class MyHomePage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) => const StateProviderScreen(),));
+                    },
+                    child: const Text("Lecture #2 StateProvider")
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const FutureProviderScreen(),));
                     },
                     child: const Text("Lecture #2 StateProvider")
                 ),
