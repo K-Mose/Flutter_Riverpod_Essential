@@ -51,3 +51,8 @@ String age(Ref ref) {
 Provider -> Provider를, autoDisposeProvider는 autoDisposeProvider를 의존해야 한다.
 Provider -> autoDisposeProvider 또는 autoDisposeProvider -> Provider 의존하게되면 아래와 같은 에러가 발생한다.
 `Error: The argument type 'AutoDisposeStateProvider<int>' can't be assigned to the parameter type 'AlwaysAliveProviderListenable<dynamic>'.`
+
+
+### Family
+initial value가 다른 상태를 여러개 만들 때 좋음
+initial value가 같은(family에 넘기는 인지가 같은) provider는 서로 같은 provider로 인식하는 것 같다.
