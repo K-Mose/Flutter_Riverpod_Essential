@@ -5,7 +5,7 @@
 Riverpod에서는 `AsyncValue`를 지원하여 위 세 상태를 다루기 편하게 한다.
 
 ### AsyncValue
-![](../../../../../imgs/async_value.png)
+![](./../../../../../imgs/aync_value.png)
 - `AsyncLoading`: `AsyncValue.loading` progress indicator
 - `AsyncError` : `AsyncValue.error` error screen
 - `AsyncData` : `AsyncValue.data` show the data

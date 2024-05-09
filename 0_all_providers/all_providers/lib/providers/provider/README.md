@@ -5,7 +5,7 @@
 - autoDispose
 - family
 - autoDispose + family
-  ![](../../imgs/provider_modifiers.png)
+  ![](./../../../../../imgs/provider_modifiers.png)
 
 **위젯에서 ref 접근하기**
 1. `extends Consumer`
