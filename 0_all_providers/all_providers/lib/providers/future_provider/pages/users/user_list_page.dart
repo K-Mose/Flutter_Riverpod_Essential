@@ -1,3 +1,4 @@
+import 'package:all_providers/providers/future_provider/pages/users/user_detail_page.dart';
 import 'package:all_providers/providers/future_provider/pages/users/users_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -52,11 +53,20 @@ class UserListPage extends ConsumerWidget {
             },
             itemBuilder: (context, index) {
               final user = users[index];
-              return ListTile(
-                leading: CircleAvatar(
-                  child: Text(user.id.toString()),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) {
+                      return UserDetailPage(user.id);
+                    },),
+                  );
+                },
+                child: ListTile(
+                  leading: CircleAvatar(
+                    child: Text(user.id.toString()),
+                  ),
+                  title: Text(user.name),
                 ),
-                title: Text(user.name),
               );
             },
           );
