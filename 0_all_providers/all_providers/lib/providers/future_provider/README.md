@@ -34,3 +34,75 @@ R when<R>({
 })
 ```
 FutureProvider / StreamProvider / AsyncNotifierProvider와 같이 사용된다.
+
+<details>
+  <summary>when 예제</summary>
+
+  ```dart
+body: switch (userList) {
+  AsyncData(value: final users) => ListView.separated(
+    itemCount: users.length,
+    separatorBuilder: (context, index) {
+      return const Divider();
+    },
+    itemBuilder: (context, index) {
+      final user = users[index];
+      return ListTile(
+        leading: CircleAvatar(
+          child: Text(user.id.toString()),
+        ),
+        title: Text(user.name),
+      );
+    },
+  ),
+  AsyncError(error: final error, stackTrace: final _) => Center(
+          child: Text(
+            error.toString(),
+            style: const TextStyle(fontSize: 20, color: Colors.red),
+          ),
+        ),
+  // AsyncLoading() => const Center(
+  // switch case에서 default와 동일
+  _ => const Center(
+          child: CircularProgressIndicator(),
+        ),
+},
+  ```
+</details>
+<details>
+  <summary>switch 예제</summary>
+
+  ```dart
+body: userList.when(
+  data: (users) {
+    return ListView.separated(
+      itemCount: users.length,
+      separatorBuilder: (context, index) {
+        return const Divider();
+      },
+      itemBuilder: (context, index) {
+        final user = users[index];
+        return ListTile(
+          leading: CircleAvatar(
+            child: Text(user.id.toString()),
+          ),
+          title: Text(user.name),
+        );
+      },
+    );
+  },
+  error: (error, stackTrace) {
+    return Center(
+      child: Text(
+        error.toString(),
+        style: const TextStyle(fontSize: 20, color: Colors.red),
+      ),
+    );
+  },
+  loading: () => const Center(
+    child: CircularProgressIndicator(),
+  ),
+),
+  ```
+</details>
+

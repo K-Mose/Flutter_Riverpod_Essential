@@ -57,7 +57,7 @@ class MyHomePage extends StatelessWidget {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) => const FutureProviderScreen(),));
                     },
-                    child: const Text("Lecture #2 StateProvider")
+                    child: const Text("Lecture #3 FutureProvider")
                 ),
               ],
             ),
