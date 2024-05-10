@@ -1,4 +1,12 @@
 # FutureProvider
+
+```text
+INFO
+FutureProvider does not offer a way of directly modifying the computation after a user interaction. It is designed to solve simple use-cases.
+For more advanced scenarios, consider using AsyncNotifierProvider.
+```
+**user interaction**이 필요한 경우 `AsyncNotifierProvider`를 사용 권장
+
 `AsyncValue`가 지원되는 `Provider`. `FutureBuilder`의 대용으로 사용 가능하다
 
 통상적으로 Remote Api 호출에서는 Loading / Success / Error 의 상태 처리가 필요하다. 
@@ -106,3 +114,5 @@ body: userList.when(
   ```
 </details>
 
+### State Caching 
+`@Riverpod(keepAlive: true)` or `ref.keepAlive()` 사용
