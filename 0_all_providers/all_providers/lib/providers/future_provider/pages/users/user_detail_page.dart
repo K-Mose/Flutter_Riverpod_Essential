@@ -15,43 +15,47 @@ class UserDetailPage extends ConsumerWidget {
       ),
       body: detail.when(
         data: (user) {
-          return ListView(
-            padding: const EdgeInsets.symmetric(
-              vertical: 40,
-              horizontal: 20
+          return RefreshIndicator(
+            onRefresh: () => ref.read(userDetailProvider(userId).future),
+            child: ListView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(
+                vertical: 40,
+                horizontal: 20
+              ),
+              children: [
+                Text(
+                  user.name,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const Divider(),
+                const SizedBox(height: 8,),
+                UserInfo(
+                  iconData: Icons.account_circle,
+                  userInfo: user.name,
+                ),
+                const SizedBox(height: 8,),
+                UserInfo(
+                  iconData: Icons.email,
+                  userInfo: user.email,
+                ),
+                const SizedBox(height: 8,),
+                UserInfo(
+                  iconData: Icons.phone,
+                  userInfo: user.phone,
+                ),
+                const SizedBox(height: 8,),
+                UserInfo(
+                  iconData: Icons.email,
+                  userInfo: user.email,
+                ),
+                const SizedBox(height: 8,),
+                UserInfo(
+                  iconData: Icons.web_rounded,
+                  userInfo: user.website,
+                ),
+              ],
             ),
-            children: [
-              Text(
-                user.name,
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const Divider(),
-              const SizedBox(height: 8,),
-              UserInfo(
-                iconData: Icons.account_circle,
-                userInfo: user.name,
-              ),
-              const SizedBox(height: 8,),
-              UserInfo(
-                iconData: Icons.email,
-                userInfo: user.email,
-              ),
-              const SizedBox(height: 8,),
-              UserInfo(
-                iconData: Icons.phone,
-                userInfo: user.phone,
-              ),
-              const SizedBox(height: 8,),
-              UserInfo(
-                iconData: Icons.email,
-                userInfo: user.email,
-              ),
-              const SizedBox(height: 8,),
-              UserInfo(
-                iconData: Icons.web_rounded,
-                userInfo: user.website,
-              ),
-            ],
           );
         },
         error: (error, stackTrace) {

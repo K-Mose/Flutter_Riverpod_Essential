@@ -23,8 +23,8 @@ FutureOr<User> userDetail(UserDetailRef ref,int id) async {
     print('[userDetailProvider($id)]:: disposed');
   });
   // ref.keepAlive(); 호출 이후의 데이터를 keepAlive 시킴
-  ref.keepAlive();
   final response = await ref.watch(dioProvider).get('/users/$id');
+  ref.keepAlive();
   final user = User.fromJson(response.data);
   return user;
 }
