@@ -7,8 +7,8 @@
 4. ChangeNotifierProvider
 5. NotifierProvider
 6. AsyncNotifierProvider
-7. FutureProvider
-8. StreamProvider
+7. [FutureProvider](/lib/providers/future_provider)
+8. [StreamProvider](/lib/providers/stream_provider)
 9. StreamNotifierProvider
 
 
