@@ -1,8 +1,7 @@
+import 'package:all_providers/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'pages/users/user_list_page.dart';
-import 'widgets/custom_button.dart';
 
 class FutureProviderScreen extends StatelessWidget {
   const FutureProviderScreen({super.key});

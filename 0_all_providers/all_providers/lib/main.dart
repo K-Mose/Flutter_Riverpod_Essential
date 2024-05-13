@@ -1,6 +1,7 @@
 import 'package:all_providers/providers/future_provider/home.dart';
 import 'package:all_providers/providers/provider/home.dart';
 import 'package:all_providers/providers/state_provider/state_provider_screen.dart';
+import 'package:all_providers/providers/strem_provider/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -58,6 +59,13 @@ class MyHomePage extends StatelessWidget {
                         builder: (context) => const FutureProviderScreen(),));
                     },
                     child: const Text("Lecture #3 FutureProvider")
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const StreamProviderScreen(),));
+                    },
+                    child: const Text("Lecture #4 StreamProvider")
                 ),
               ],
             ),
