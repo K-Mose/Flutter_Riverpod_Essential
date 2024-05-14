@@ -1,5 +1,6 @@
 import 'package:all_providers/providers/change_notifier_provider/home.dart';
 import 'package:all_providers/providers/future_provider/home.dart';
+import 'package:all_providers/providers/notifier_provider/home.dart';
 import 'package:all_providers/providers/provider/home.dart';
 import 'package:all_providers/providers/state_notifier_provider/home.dart';
 import 'package:all_providers/providers/state_provider/state_provider_screen.dart';
@@ -82,6 +83,13 @@ class MyHomePage extends StatelessWidget {
                         builder: (context) => const ChangeNotifierProviderScreen(),));
                     },
                     child: const Text("Lecture #6 ChangeNotifierProviderScreen")
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const NotifierProviderScreen(),));
+                    },
+                    child: const Text("Lecture #7 NotifierProviderScreen")
                 ),
               ],
             ),
