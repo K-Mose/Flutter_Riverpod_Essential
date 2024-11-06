@@ -2,6 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // 일만적인 Notifier
 class Counter extends Notifier<int> {
+  // Notifier 내 변수 선언은
+  // int _publicVar = 0;
   // 상태의 초기값
   @override
   int build() {

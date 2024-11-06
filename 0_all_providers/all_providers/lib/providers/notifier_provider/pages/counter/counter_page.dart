@@ -1,3 +1,4 @@
+import 'package:all_providers/providers/notifier_provider/pages/counter/annotated_counter_provider.dart';
 import 'package:all_providers/providers/notifier_provider/pages/counter/counter_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +11,7 @@ class CounterPage extends ConsumerWidget {
     final counter = ref.watch(counterProvider);
     final autoDisposeCounter = ref.watch(autoDisposeCounterProvider);
     final familyCounter = ref.watch(familyCounterProvider(10));
+    final annotatedCounter = ref.watch(annotatedCounterProvider(100));
     return Scaffold(
       appBar: AppBar(
         title: const Text('Counter'),
@@ -26,6 +28,8 @@ class CounterPage extends ConsumerWidget {
                 Text("$autoDisposeCounter", style: Theme.of(context).textTheme.headlineLarge,),
                 const SizedBox(width: 20,),
                 Text("$familyCounter", style: Theme.of(context).textTheme.headlineLarge,),
+                const SizedBox(width: 20,),
+                Text("$annotatedCounter", style: Theme.of(context).textTheme.headlineLarge,),
               ],
             ),
             const SizedBox(height: 50,),
@@ -34,6 +38,7 @@ class CounterPage extends ConsumerWidget {
                 ref.read(counterProvider.notifier).increment();
                 ref.read(autoDisposeCounterProvider.notifier).increment();
                 ref.read(familyCounterProvider(10).notifier).increment();
+                ref.read(annotatedCounterProvider(100).notifier).increment();
               },
               child: Text(
                 'Increment',
