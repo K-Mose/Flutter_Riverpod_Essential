@@ -13,15 +13,17 @@ class NotifierProviderScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('NotifierProvider'),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(20),
-        shrinkWrap: true,
-        children: const [
-          CustomButton(
-            title: 'Counter',
-            child: CounterPage(),
-          ),
-        ],
+      body: Center(
+        child: ListView(
+          padding: const EdgeInsets.all(20),
+          shrinkWrap: true,
+          children: const [
+            CustomButton(
+              title: 'Counter',
+              child: CounterPage(),
+            ),
+          ],
+        ),
       ),
     );
   }
