@@ -76,4 +76,4 @@ class AutoDisposeFamilyCounter extends AutoDisposeFamilyNotifier<int, int> {
   }
 }
 
-final autoDisposeFamilyCounterProvider = NotifierProvider.family<AutoDisposeFamilyCounter, int, int> (AutoDisposeFamilyCounter.new);
+final autoDisposeFamilyCounterProvider = NotifierProvider.autoDispose.family<AutoDisposeFamilyCounter, int, int> (AutoDisposeFamilyCounter.new);
