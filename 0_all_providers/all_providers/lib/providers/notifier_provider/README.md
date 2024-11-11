@@ -35,3 +35,41 @@ freezed에서는 자체적으로 sealed/union class를 제공하는데, dart에�
 riverpod에 특화된 state shape
 
 
+
+### Unhandled Exception: Tried to modify a provider while the widget tree was building.
+아래 리스트에서 provider를 modifier하려 해서 발생
+**in a widget life-cycle, such as but not limited to:**
+- build
+- initState
+- dispose
+- didUpdateWidget
+- didChangeDependencies
+      
+Modifying a provider inside those life-cycles is not allowed, as it could
+lead to an inconsistent UI state. For example, two widgets could listen to the
+same provider, but incorrectly receive different states.
+-> 일관성 없는 UI 상태를 야기할 수 있음
+                                
+**해결법** 
+  To fix this problem, you have one of two solutions:
+  - (preferred) Move the logic for modifying your provider outside of a widget
+    life-cycle. For example, maybe you could update your provider inside a button's
+    onPressed instead.
+  **-> provider를 lifecycle 밖에서 호출 시켜라**
+  - Delay your modification, such as by encapsulating the modification
+    in a `Future(() {...})`.
+    This will perform your update after the widget tree is done building.
+  **-> `Future`같은 것으로 감싸서 widget의 building이 완성된 후에 호출시켜라**
+
+ 
+아래 코드 둘 중 하나 사용
+```dart
+    Future.delayed(Duration.zero, () {
+      
+    });
+// or
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      
+    });
+
+```

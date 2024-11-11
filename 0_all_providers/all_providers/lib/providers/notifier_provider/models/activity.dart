@@ -8,7 +8,7 @@ part 'activity.freezed.dart';
 class Activity with _$Activity {
   const factory Activity({
     @Default('') String activity,
-    @Default('') String accessibility,
+    @Default(0.0) double accessibility,
     @Default(0.0) double availability,
     @Default(0.0) double price,
     @Default(0) int participants,

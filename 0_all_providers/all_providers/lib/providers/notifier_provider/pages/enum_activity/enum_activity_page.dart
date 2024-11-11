@@ -18,7 +18,14 @@ class _EnumActivityPageState extends ConsumerState<EnumActivityPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(enumActivityProvider.notifier).fetchActivity(activityTypes[0]);
+    // Tried to modify a provider while the widget tree was building. 발생
+    // ref.read(enumActivityProvider.notifier).fetchActivity(activityTypes[0]);
+    // Future.delayed(Duration.zero, () {
+    //   ref.read(enumActivityProvider.notifier).fetchActivity(activityTypes[0]);
+    // });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      ref.read(enumActivityProvider.notifier).fetchActivity(activityTypes[0]);
+    });
   }
   @override
   Widget build(BuildContext context) {

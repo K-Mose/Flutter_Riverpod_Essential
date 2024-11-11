@@ -1,4 +1,4 @@
-import 'package:all_providers/providers/future_provider/provider/dio_provider.dart';
+import 'package:all_providers/providers/notifier_provider/providers/dio_provider.dart';
 import 'package:all_providers/providers/notifier_provider/models/activity.dart';
 import 'package:all_providers/providers/notifier_provider/pages/enum_activity/enum_activity_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -30,7 +30,7 @@ class EnumActivity extends _$EnumActivity {
         activity: activity,
       );
     } catch (e) {
-      state.copyWith(
+      state = state.copyWith(
         status: ActivityStatus.failure,
         error: e.toString(),
       );
