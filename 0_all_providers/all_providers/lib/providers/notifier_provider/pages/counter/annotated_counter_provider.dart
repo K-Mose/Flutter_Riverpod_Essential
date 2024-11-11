@@ -9,7 +9,7 @@ class AnnotatedCounter extends _$AnnotatedCounter {
   @override
   int build(int initialValue) {
     ref.onDispose(() {
-      print('[annotatedCounterProvider] disposed')
+      print("[annotatedCounterProvider]:: disposed");
     });
     return initialValue;
   }
