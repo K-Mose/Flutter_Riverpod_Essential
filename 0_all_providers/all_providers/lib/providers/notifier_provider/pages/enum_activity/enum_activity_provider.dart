@@ -16,14 +16,13 @@ class EnumActivity extends _$EnumActivity {
   }
 
   //
-  // Future<void> fetchActivity(String activityType) async {
-  Future<void> fetchActivity() async {
+  Future<void> fetchActivity(String activityType) async {
     state = state.copyWith(
       status: ActivityStatus.loading,
     );
 
     try {
-      final response = await ref.read(dioProvider).get('/random');
+      final response = await ref.read(dioProvider).get('?type=$activityType');
       final activity = Activity.fromJson(response.data);
 
       state = state.copyWith(
