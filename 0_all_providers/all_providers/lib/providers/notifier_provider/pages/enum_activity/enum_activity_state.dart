@@ -2,8 +2,6 @@ import 'package:all_providers/providers/notifier_provider/models/activity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 
-part 'enum_activity_state.g.dart';
-
 part 'enum_activity_state.freezed.dart';
 
 enum ActivityStatus {
