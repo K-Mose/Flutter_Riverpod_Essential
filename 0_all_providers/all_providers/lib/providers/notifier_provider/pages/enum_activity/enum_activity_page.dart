@@ -29,26 +29,52 @@ class _EnumActivityPageState extends ConsumerState<EnumActivityPage> {
   }
   @override
   Widget build(BuildContext context) {
+    ref.listen<EnumActivityState>(enumActivityProvider, (previous, next) {
+      if (next.status == ActivityStatus.failure) {
+        showDialog(context: context, builder: (context) {
+          return AlertDialog(content: Text(next.error),);
+        },);
+      }
+    },);
     final activityState = ref.watch(enumActivityProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('EnumActivityNotifier'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              // watch 하는 provider가 변하는 경우 dispose 되었다가 다시 build는 실행
+              ref.read(myCounterProvider.notifier).increment();
+            },
+            icon: const Icon(Icons.add),
+          ),
+          IconButton(
+            onPressed: () {
+              // ref.invalidate will destroy the current provider state
+              // provider를 refresh 했을 때, build는 다시 실행 되지만 notifier 자체는 다시 실행되지 않는다.
+              ref.invalidate(enumActivityProvider);
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       // switch expression
       body: switch(activityState.status) {
         ActivityStatus.initial => const Center(
           child: Text(
-              'Get some activity',
+              "Get Some Activity",
               style: TextStyle(fontSize: 20),
             ),
           ),
         ActivityStatus.loading => const Center(child: CircularProgressIndicator(),),
-        ActivityStatus.failure => Center(
-          child: Text(
-              activityState.error,
-              style: const TextStyle(fontSize: 20, color: Colors.red),
-            ),
-          ),
+        ActivityStatus.failure => activityState.activity == const Activity()
+            ? const Center(
+                child: Text(
+                    "Get Some Activity",
+                    style: TextStyle(fontSize: 20, color: Colors.red),
+                  ),
+                )
+            : ActivityWidget(activity: activityState.activity),
         ActivityStatus.success => ActivityWidget(activity: activityState.activity),
       },
       floatingActionButton: FloatingActionButton.extended(

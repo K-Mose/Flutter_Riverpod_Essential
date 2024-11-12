@@ -11,7 +11,7 @@ riverpod_generator를 사용해 생성 가능
   
 
 ## State Shape 
-### enm based state
+### enum based state
 ![img.png](img.png)
 **ActivityStatus**: 현재 통신 상태를 나타낸다.
   - initial : 초기 상태.
@@ -20,6 +20,31 @@ riverpod_generator를 사용해 생성 가능
   - failure : 데이터 수신이 비정상적으로 실패한 상태, 보통 실패 화면이나 다이얼로그를 띄운다.
 **Actvity**: 데이터 수신 성공 시 현재 데이터를 표시
 **error**: 데이터 수신 실패 시 에러 메시지를 표시
+
+**Fetch Data**
+```dart
+  Future<void> fetchActivity(String activityType) async {
+    state = state.copyWith(
+      status: ActivityStatus.loading,
+    );
+
+    try {
+      final response = await ref.read(dioProvider).get('?type=$activityType');
+      final activity = Activity.fromJson(response.data);
+
+      state = state.copyWith(
+        status: ActivityStatus.success,
+        activity: activity,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        status: ActivityStatus.failure,
+        error: e.toString(),
+      );
+    }
+  }
+``` 
+에러가 발생했을 때 `copyWith`로 `status`와 `error`값만 변경하기 때문에 기존의 `Activity`값은 유지된다. 
 
 ### sealed class based state
   - Dart 3.0 부터 제공
