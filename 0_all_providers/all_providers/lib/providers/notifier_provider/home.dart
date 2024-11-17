@@ -1,4 +1,5 @@
 import 'package:all_providers/providers/notifier_provider/pages/enum_activity/enum_activity_page.dart';
+import 'package:all_providers/providers/notifier_provider/pages/sealed_activity/sealed_activity_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:all_providers/widgets/custom_button.dart';
@@ -26,6 +27,10 @@ class NotifierProviderScreen extends StatelessWidget {
             CustomButton(
               title: 'EnumActivity',
               child: EnumActivityPage(),
+            ),
+            CustomButton(
+              title: 'SealedActivity',
+              child: SealedActivityPage(),
             ),
           ],
         ),

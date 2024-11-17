@@ -17,6 +17,7 @@ class SealedActivity extends _$SealedActivity {
     return const SealedActivityInitial();
   }
   Future<void> fetchActivity(String activityType) async {
+    print("hasCode in fetchActivity:: $hashCode");
     state = const SealedActivityLoading();
     try {
       print("_errorCounter:: $_errorCounter");
