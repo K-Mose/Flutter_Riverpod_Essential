@@ -55,6 +55,25 @@ riverpod_generator를 사용해 생성 가능
 freezed에서는 자체적으로 sealed/union class를 제공하는데, dart에서 이제 제공하므로 사용할 필요가 없음
 </details>
 
+기존의 `class A`를 만들면 해당 클래스를 extends하는 sub 클래스들을 만들 수 있다. e.g.) `class A1 extends A, class A2 extends A ...`
+기존 `Flutter`에서 `state class`를 만들 때 아래와 같은 형식으로 만들었다.
+```dart
+abstract class ActivityState{}
+
+class ActivityInitial extends ActivityState{}
+class ActivityLoading extends ActivityState{}
+class ActivitySuccess extends ActivityState{}
+class ActivityFailure extends ActivityState{}
+```
+우리는 이러한 형태에서 ActivityState가 네트워크 통신의 모든 상황에서 처리할 수 있다는 것을 알지만, Compiler는 모든 상황을 처리할 수 있다는 것을 알 수 없다.
+
+Dart 3.0 부터 나온 `sealed` modifier를 사용하면 SubType들의 집합을 만들 수 있다. 
+`sealed class ActivityState{}`
+
+`sealed class`가 정의된 library 외부에서 extends, implement 할 수 없다.
+`sealed`는 Abstract class이기 때문에 초기화할 수 없지만 factory constructor는 가질 수 있다. 또 Subclass들 위한 constructor도 정의할 수 있다.
+Compiler에서도 `sealed`의 모든 subclass들을 알 수 있다.
+
 
 ### AsyncValue
 riverpod에 특화된 state shape
