@@ -1,3 +1,4 @@
+import 'package:all_providers/providers/async_notifier_provider/home.dart';
 import 'package:all_providers/providers/change_notifier_provider/home.dart';
 import 'package:all_providers/providers/future_provider/home.dart';
 import 'package:all_providers/providers/notifier_provider/home.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
     );
   }
@@ -90,6 +92,13 @@ class MyHomePage extends StatelessWidget {
                         builder: (context) => const NotifierProviderScreen(),));
                     },
                     child: const Text("Lecture #7 NotifierProviderScreen")
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const AsyncNotifierProviderScreen(),));
+                    },
+                    child: const Text("Lecture #8 AsyncNotifierProviderScreen")
                 ),
               ],
             ),
