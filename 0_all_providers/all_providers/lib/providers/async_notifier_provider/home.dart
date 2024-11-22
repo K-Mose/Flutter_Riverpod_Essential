@@ -1,3 +1,4 @@
+import 'package:all_providers/providers/async_notifier_provider/pages/async_activity/async_activity_page.dart';
 import 'package:all_providers/providers/async_notifier_provider/pages/counter/counter_page.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,10 @@ class AsyncNotifierProviderScreen extends StatelessWidget {
             CustomButton(
               title: 'Counter',
               child: CounterPage(),
+            ),
+            CustomButton(
+              title: 'AsyncActivity',
+              child: AsyncActivityPage(),
             ),
           ],
         ),
