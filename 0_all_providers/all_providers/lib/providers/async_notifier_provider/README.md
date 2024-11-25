@@ -46,6 +46,30 @@ I/flutter ( 5756): hasValue: true, hasError: false
 - AsyncError : `AsyncValue`의 `value`는 유지하고, `error`값을 업데이트한다.
 - AsyncData :  `AsyncValue`의 `value`값을 업데이트하고, `error`값을 초기화 시킨다.
 
+### Build에서의 FutureOr와 Future
+**50번 강의 질문 참고**
+1. return 값이 **int** (T) 타입
+```
+@override
+FutureOr<int> build(int initialValue) {
+  ref.onDispose(() {
+    print('[counterProvider] disposed');
+  });
+  return initialValue;
+}
+```
+반환하는 값이 제네릭 타입일 경우에는 `AsyncValue`에서 `AsyncLoading` 없이 `AsyncData`가 바로 실행된다.   
+2. return 값이 **Future\<int\>** 타입
+```
+@override
+FutureOr<int> build(int initialValue) {
+  ref.onDispose(() {
+    print('[counterProvider] disposed');
+  });
+  return Future.value(initialValue);
+}
+```
+반환하는 값이 **Future\<T\>** 일 경우에는 `AsyncLoading` 동안 Futuer의 비동기 작업이 처리되며 `AsyncData`(또는 `AsyncError`)가 실행된다.
 
 ### [when](https://pub.dev/documentation/riverpod/latest/riverpod/AsyncValueX/when.html)
 
