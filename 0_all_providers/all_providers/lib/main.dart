@@ -5,6 +5,7 @@ import 'package:all_providers/providers/notifier_provider/home.dart';
 import 'package:all_providers/providers/provider/home.dart';
 import 'package:all_providers/providers/state_notifier_provider/home.dart';
 import 'package:all_providers/providers/state_provider/state_provider_screen.dart';
+import 'package:all_providers/providers/strean_notifier_provider/home.dart';
 import 'package:all_providers/providers/strem_provider/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -99,6 +100,13 @@ class MyHomePage extends StatelessWidget {
                         builder: (context) => const AsyncNotifierProviderScreen(),));
                     },
                     child: const Text("Lecture #8 AsyncNotifierProviderScreen")
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const StreamNotifierProviderScreen(),));
+                    },
+                    child: const Text("Lecture #9 StreamNotifierProviderScreen")
                 ),
               ],
             ),
