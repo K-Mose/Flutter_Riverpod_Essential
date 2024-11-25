@@ -16,9 +16,39 @@ state를 변경하기 위해서는 `AsyncNotifier`에서 제공되는 인터페�
 ## [AsyncValue](https://pub.dev/documentation/riverpod/latest/riverpod/AsyncValue-class.html)
 `AsyncValue`는 비동기 작업에서 loading/error 상황을 잊지않고 처리하기 위해 사용한다.
 
+### AsysncDaya의 상태
+<details><summary>logs</summary>
+
+```
+// 1번째 실행, 에러 발생
+I/flutter ( 5756): AsyncLoading<Activity>()
+I/flutter ( 5756): isLoading: true, isRefreshing: false, isReloading: false 
+I/flutter ( 5756): hasValue: false, hasError: false
+
+I/flutter ( 5756): AsyncError<Activity>(error: Fail to fetch Activity)
+I/flutter ( 5756): isLoading: false, isRefreshing: false, isReloading: false 
+I/flutter ( 5756): hasValue: false, hasError: true
+
+// 2번째 실행, 정상 동작
+// asyncLoading 상태에서 error가 보존된다. 
+I/flutter ( 5756): AsyncLoading<Activity>(error: Fail to fetch Activity)
+I/flutter ( 5756): isLoading: true, isRefreshing: false, isReloading: true 
+I/flutter ( 5756): hasValue: false, hasError: true
+I/flutter ( 5756): https://bored.api.lewagon.com/api/activity?type=diy
+// asyncData에서 error가 사라짐  
+I/flutter ( 5756): AsyncData<Activity>(value: Activity(activity: Find a DIY to do, accessibility: 0.3, type: diy, participants: 1, price: 0.4, key: 4981819))
+I/flutter ( 5756): isLoading: false, isRefreshing: false, isReloading: false 
+I/flutter ( 5756): hasValue: true, hasError: false
+```
+
+</details>
+- AsyncLoading : `AsyncValue`의 `value`와 `error` 값을 유지한다.  
+- AsyncError : `AsyncValue`의 `value`는 유지하고, `error`값을 업데이트한다.
+- AsyncData :  `AsyncValue`의 `value`값을 업데이트하고, `error`값을 초기화 시킨다.
 
 
 ### [when](https://pub.dev/documentation/riverpod/latest/riverpod/AsyncValueX/when.html)
+
 ```dart
 R when<R>({
   bool skipLoadingOnReload = false,
@@ -30,10 +60,12 @@ R when<R>({
 })
 ```
 `when`은 `AsyncValue`의 확장 함수로 `AsyncValue`가 `data`, `error`, `loading` 상태일 때 표시할 위젯을 나타내도록 한다. 
-<br>
+<br><br>
 `error`의 stackTrance를 직접 전달할 수 없을 때는 `StackTrace.current`를 전달하면 된다. 
-<br>
-`skipLoadingOnRefresh`를 `true`로 주면 `provider`를 `invalidate` 했을 때 로딩 화면을 표시할 수 있다.
+<br><br>
+`skipLoadingOnRefresh`를 `true`로 주면 `provider`를 `invalidate` 했을 때 로딩 화면을 표시할 수 있다.<br><br>
+`skipError`를 `true`로 설정하면 previous value가 있을 시 에러 화면을 보여주지 않고 previous 데이터를 화면에 보여준다. 이러면 Dialog나 SnackBar 같은 위젯으로 오류를 보여주면서 화면은 유지할 수 있다.<br><br>
+`skipLoadingOnReload`를 `true`로 설정하면 previous value나 error가 있을 시 로딩 화면을 보여주지 않고 데이터 화면만 보여준다. 비동기적으로 데이터를 처리하는 것 처럼 보여줄 때 유용할 것 같다.
 
 ### [guard](https://pub.dev/documentation/riverpod/latest/riverpod/AsyncValue/guard.html)
 ```dart

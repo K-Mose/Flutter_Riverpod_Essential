@@ -17,7 +17,6 @@ class AsyncActivity extends _$AsyncActivity {
 
   Future<Activity> getActivity(String activityType) async {
     if (_errorCount++ % 2 != 1) {
-      print("__errorCount:: $_errorCount");
       await Future.delayed(const Duration(milliseconds: 500));
       throw 'Fail to fetch Activity';
     }
