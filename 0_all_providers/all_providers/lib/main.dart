@@ -110,6 +110,18 @@ class MyHomePage extends StatelessWidget {
                 ),
               ],
             ),
+            ExpansionTile(
+              title: const Text("AsyncValue Details", style: TextStyle(fontSize: 24.0),),
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const ProviderScreen(),));
+                    },
+                    child: const Text("Lecture #1 Provider")
+                ),
+              ],
+            ),
           ],
         ),
       ),
