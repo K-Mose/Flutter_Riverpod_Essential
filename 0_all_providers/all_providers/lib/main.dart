@@ -1,3 +1,4 @@
+import 'package:all_providers/async_value/weather_app/home.dart';
 import 'package:all_providers/providers/async_notifier_provider/home.dart';
 import 'package:all_providers/providers/change_notifier_provider/home.dart';
 import 'package:all_providers/providers/future_provider/home.dart';
@@ -119,6 +120,13 @@ class MyHomePage extends StatelessWidget {
                         builder: (context) => const ProviderScreen(),));
                     },
                     child: const Text("Lecture #1 Provider")
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const WeatherScreen(),));
+                    },
+                    child: const Text("Lecture #2 AsyncValue")
                 ),
               ],
             ),
