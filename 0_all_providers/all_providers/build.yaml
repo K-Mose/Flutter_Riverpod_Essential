@@ -1,0 +1,18 @@
+# https://codewithandrea.com/tips/speed-up-code-generation-build-runner-dart-flutter/
+# https://pub.dev/packages/riverpod_generator#global-configuration
+# https://github.com/rrousselGit/riverpod/blob/master/packages/riverpod_generator/build.yaml
+#targets:
+#  $default:
+#    builders:
+#      freezed:freezed:
+#        generate_for:
+#          include:
+#            - lib/async_value/weather_app/**.dart
+#      riverpod_generator:
+#        enabled: true
+#        generate_for:
+#          exclude:
+#            - test
+#            - example
+#          include:
+#            - lib/async_value/weather_app/**.dart
