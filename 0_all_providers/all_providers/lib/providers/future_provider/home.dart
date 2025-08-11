@@ -1,3 +1,4 @@
+import 'package:all_providers/providers/future_provider/pages/family_dispose/family_dispose_page.dart';
 import 'package:all_providers/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,10 @@ class FutureProviderScreen extends StatelessWidget {
             CustomButton(
               title: 'User List',
               child: UserListPage(),
+            ),
+            CustomButton(
+              title: 'Family Dispose',
+              child: FamilyDisposePage(),
             ),
           ],
         ),
