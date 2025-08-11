@@ -1,9 +1,12 @@
+import 'package:all_providers/async_value/weather_app/home.dart';
+import 'package:all_providers/providers/async_notifier_provider/home.dart';
 import 'package:all_providers/providers/change_notifier_provider/home.dart';
 import 'package:all_providers/providers/future_provider/home.dart';
 import 'package:all_providers/providers/notifier_provider/home.dart';
 import 'package:all_providers/providers/provider/home.dart';
 import 'package:all_providers/providers/state_notifier_provider/home.dart';
 import 'package:all_providers/providers/state_provider/state_provider_screen.dart';
+import 'package:all_providers/providers/strean_notifier_provider/home.dart';
 import 'package:all_providers/providers/strem_provider/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,6 +27,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
     );
   }
@@ -90,6 +94,39 @@ class MyHomePage extends StatelessWidget {
                         builder: (context) => const NotifierProviderScreen(),));
                     },
                     child: const Text("Lecture #7 NotifierProviderScreen")
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const AsyncNotifierProviderScreen(),));
+                    },
+                    child: const Text("Lecture #8 AsyncNotifierProviderScreen")
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const StreamNotifierProviderScreen(),));
+                    },
+                    child: const Text("Lecture #9 StreamNotifierProviderScreen")
+                ),
+              ],
+            ),
+            ExpansionTile(
+              title: const Text("AsyncValue Details", style: TextStyle(fontSize: 24.0),),
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const ProviderScreen(),));
+                    },
+                    child: const Text("Lecture #1 Provider")
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const WeatherScreen(),));
+                    },
+                    child: const Text("Lecture #2 AsyncValue")
                 ),
               ],
             ),
