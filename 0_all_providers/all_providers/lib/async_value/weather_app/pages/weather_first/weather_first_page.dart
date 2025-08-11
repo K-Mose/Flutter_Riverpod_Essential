@@ -42,10 +42,20 @@ class WeatherFirstPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('AsyncValue Details - First'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _selectedCityIndex = 1;
+              ref.invalidate(weatherFirstProvider);
+            },
+            icon: Icon(Icons.refresh),
+          )
+        ],
       ),
       body: Center(
         child: weather.when(
           skipError: true,
+          skipLoadingOnRefresh: false,
           data: (temp) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
