@@ -31,7 +31,7 @@ FutureOr<List<Product>> getProducts(GetProductsRef ref) async {
   });
   ref.onResume(() {
     print('[getProductsProvider] resumed');
-    timer?.cancel()
+    timer?.cancel();
   });
   ref.onAddListener(() {
     print('[getProductsProvider] listener added');

@@ -204,3 +204,27 @@ FutureOr<List<Product>> getProducts(GetProductsRef ref) async {
 ```
 
 ### 5. when a provider watches another provider
+cascadeCounterProvider를 ageProvider가 watch 하면서 counter 값에 의존할 때
+```
+// ageProvider를 listen하기 시작 -> ageProvider가 watch하기 떄문에 casCadeCounterProvider도 연쇄적으로 호출됨 
+I/flutter (19199): [AgeProvider] initialized
+I/flutter (19199): [CascadeCounterProvider] initialized
+I/flutter (19199): [CascadeCounterProvider] listener added
+I/flutter (19199): [AgeProvider] listener added
+
+// cascadeCounterProvider의 값을 증가 시킴
+I/flutter (19199): [AgeProvider] disposed
+I/flutter (19199): [AgeProvider] initialized
+I/flutter (19199): [AgeProvider] disposed
+I/flutter (19199): [AgeProvider] initialized
+ 
+// ageProvider를 watch하는 화면에서 나오면 
+// ageProvider가 먼저 dispose되고, wawtch가 사라져 cascadeCounterProvider가 dispose 된다. 
+I/flutter (19199): [AgeProvider] listener removed
+I/flutter (19199): [AgeProvider] cancelled
+I/flutter (19199): [AgeProvider] disposed
+I/flutter (19199): [CascadeCounterProvider] listener removed
+I/flutter (19199): [CascadeCounterProvider] cancelled
+I/flutter (19199): [CascadeCounterProvider] disposed
+
+```
