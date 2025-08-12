@@ -58,6 +58,95 @@ I/flutter (19199): [KeepAliveCounterProvider] resumed
 ```
 
 ### 3. keepAlive: false + ref.keepAlive() + Timer + lifecycle methods (sync)
+지금까지는 Provider가 autoDispose되거나 엡이 종료될 때 까지 KeepAlive 하는 상황을 봤다.
+
+하지만 앱이 실행되고 있을 때 Provider의 state 변화가 일정 시간동안 없으면 종료되는 Provider를 만들 고 싶을 떄 캐싱 할 수 있다.
+
+**KeepAliveLink + Timer**를 통한 캐싱
+`onCancel`에서 timer를 실행시키고, `onDispose` 또는 `onResume`에서 Timer를 해제시킨다. 
+
+캐시가 종료되면 `onDispose`이고, 캐시를 유지한 채 다시 시작되면 `onResume`이 시작된다.
+```dart
+@riverpod
+class SyncKeepAliveCounter extends _$SyncKeepAliveCounter {
+  @override
+  int build() {
+    // keepAlvie 메소드는 KeepAliveLink 객체를 반환한다.
+    final keepAliveLink = ref.keepAlive();
+    Timer? timer;
+    Timer? timer2;
+    ref.onDispose(() {
+      print('[SyncKeepAliveCounterProvider] disposed, timer canceled');
+      // Provider가 close되면 dispose 되므로 timer를 취소시킨다.
+      timer?.cancel();
+      timer2?.cancel();
+      timer = null;
+    });
+    ref.onCancel(() {
+      print('[SyncKeepAliveCounterProvider] cancelled, timer started');
+      // Provier의 listener가 사라진 경우 cancel이 호출되므로
+      // cancel이 호출된 시점 이후에 타이머를 실행시켜 Provider를 close할 수 있다.
+      timer2 = Timer.periodic(const Duration(seconds: 1), (time) {
+        print(time.tick);
+      },);
+      timer = Timer(const Duration(seconds: 10), () {
+        keepAliveLink.close();
+      });
+    });
+    ref.onResume(() {
+      print('[SyncKeepAliveCounterProvider] resumed, timer canceled');
+      // cancel에서 resume으로 돌아가기 때문에 resume에서 timer를 취소시킨다.
+      timer?.cancel();
+      timer2?.cancel();
+      timer = null;
+    });
+    ref.onAddListener(() {
+      print('[SyncKeepAliveCounterProvider] listener added');
+    });
+    ref.onRemoveListener(() {
+      print('[SyncKeepAliveCounterProvider] listener removed');
+    });
+    print('[SyncKeepAliveCounterProvider] initialized');
+    return 0;
+  }
+
+  void increment() => state++;
+}
+```
+
+로그를 확인하면 아래와 같다. 
+```
+// provider 초기화
+I/flutter (19199): [SyncKeepAliveCounterProvider] initialized
+I/flutter (19199): [SyncKeepAliveCounterProvider] listener added
+
+// listen 해제, cancel
+I/flutter (19199): [SyncKeepAliveCounterProvider] listener removed
+I/flutter (19199): [SyncKeepAliveCounterProvider] cancelled, timer started
+I/flutter (19199): 1
+I/flutter (19199): 2
+I/flutter (19199): 3
+I/flutter (19199): 4
+
+// listen 시작, resume
+I/flutter (19199): [SyncKeepAliveCounterProvider] listener added
+I/flutter (19199): [SyncKeepAliveCounterProvider] resumed, timer canceled
+
+// listen 해제, cancel, 10초 후 dispose
+I/flutter (19199): [SyncKeepAliveCounterProvider] listener removed
+I/flutter (19199): [SyncKeepAliveCounterProvider] cancelled, timer started
+I/flutter (19199): 1
+I/flutter (19199): 2
+I/flutter (19199): 3
+I/flutter (19199): 4
+I/flutter (19199): 5
+I/flutter (19199): 6
+I/flutter (19199): 7
+I/flutter (19199): 8
+I/flutter (19199): 9
+I/flutter (19199): 10
+I/flutter (19199): [SyncKeepAliveCounterProvider] disposed, timer canceled
+```
 
 ### 4. keepAlive: false + ref.keepAlive() + Timer + lifecycle methods (async)
 
