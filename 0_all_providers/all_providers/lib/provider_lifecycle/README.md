@@ -31,7 +31,7 @@
 ### 1, keepAlive: false (AutoDispose)
 AutoDispose일 때 lifecycle
 `ref.watch(autoDisposeCoutner)`를 통해서  initialized되고 listener가 추가된다. 
-화면을 나가게되면 listener가 해제되고 provider가 cancel, dispose 된다.
+화면을 나가게되면 listener가 해제되고 Provider가 cancel, dispose 된다.
 ```
 I/flutter (19199): [AutoDisposeCounter] initialized
 I/flutter (19199): [AutoDisposeCounter] listener added
@@ -41,6 +41,21 @@ I/flutter (19199): [AutoDisposeCounter] disposed
 ```
 
 ### 2. keepAlive: true
+provider를 listen하는 화면에서 나오면 listener가 제거되고, Provider는 취소된다. 
+그리고 화면으로 재진입 하게 되면 listener를 다시 추가하고, Provider는 resume한다. 
+```
+// provider 초기화
+I/flutter (19199): [KeepAliveCounterProvider] initialized
+I/flutter (19199): [KeepAliveCounterProvider] listener added
+
+// provider를 listen하는 화면에서 나왔을 때 
+I/flutter (19199): [KeepAliveCounterProvider] listener removed
+I/flutter (19199): [KeepAliveCounterProvider] cancelled
+
+// provider를 listen하는 화면으로 재진입
+I/flutter (19199): [KeepAliveCounterProvider] listener added
+I/flutter (19199): [KeepAliveCounterProvider] resumed
+```
 
 ### 3. keepAlive: false + ref.keepAlive() + Timer + lifecycle methods (sync)
 
