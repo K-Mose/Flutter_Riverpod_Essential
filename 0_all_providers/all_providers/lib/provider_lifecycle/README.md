@@ -149,5 +149,58 @@ I/flutter (19199): [SyncKeepAliveCounterProvider] disposed, timer canceled
 ```
 
 ### 4. keepAlive: false + ref.keepAlive() + Timer + lifecycle methods (async)
+사용자가 request 완료 전에 cancel 시키는 상황 (뒤로가기 등)
+Dio에서 제공하는 cancelToken을 이용하면 된다.
+
+CancelToken을 Dio에 등록하고 request를 취소할 시점에서 `cancelToekn.cancel()`을 실행시킨다. 
+```dart
+@riverpod
+FutureOr<List<Product>> getProducts(GetProductsRef ref) async {
+  // CancelToken - Dio에서 request 취소를 확인 할 수 있는 객체
+  final cancelToken = CancelToken();
+  Timer? timer;
+
+  ref.onDispose(() {
+    print('[getProductsProvider] disposed, token canceled');
+    // 사용자가 화면 로드를 취소하면 request 취소와 같은 상황이므로 dispose에서 cancelToken로 http request를 cancel시킴
+    cancelToken.cancel();
+    timer?.cancel();
+  });
+  ref.onCancel(() {
+    print('[getProductsProvider] cancelled');
+  });
+  ref.onResume(() {
+    print('[getProductsProvider] resumed');
+    timer?.cancel()
+  });
+  ref.onAddListener(() {
+    print('[getProductsProvider] listener added');
+  });
+  ref.onRemoveListener(() {
+    print('[getProductsProvider] listener removed');
+  });
+  print('[getProductsProvider] initialized');
+
+  // keepAlive가 get 호출 전에 실행되면 사용자가 페이지를 빠져나가도 dispose/cancel 되지 않음
+  // ref.keepAlive();
+  final response = await ref.watch(dioProvider).get('/products', cancelToken: cancelToken);
+  // 호출 이후로 keepAlive가 호출되면 화면을 나가도 dispose되지 않고 response는 캐싱된다.
+  final keepAliveLink = ref.keepAlive();
+
+  // ref.onCancel을 keepAlive 이전에만 호출시키면 response 완료 전에 나가면 onCancel이 호출되지 않는다.
+  // 그래서 데이터 호출 시점(+keepAlivie) 위치에서 위, 아래로 등록한다.
+  ref.onCancel(() {
+    print('[getProductsProvider] cancelled, timer started ');
+    timer = Timer(const Duration(seconds: 10), () {
+      keepAliveLink.close();
+    });
+  });
+
+  final List productList = response.data['products'];
+  final products = [for (final product in productList) Product.fromJson(product)];
+  return products;
+}
+
+```
 
 ### 5. when a provider watches another provider

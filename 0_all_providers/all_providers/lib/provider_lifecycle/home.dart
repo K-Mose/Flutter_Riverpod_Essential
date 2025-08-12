@@ -1,3 +1,4 @@
+import 'package:all_providers/provider_lifecycle/pages/async_keep_alive/products_page.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/auto_dispose/auto_dispose_page.dart';
@@ -35,6 +36,10 @@ class ProviderLifecycleScreen extends StatelessWidget {
             CustomButton(
               title: 'SyncKeepAlive',
               child: SyncKeepAlivePage(),
+            ),
+            CustomButton(
+              title: 'AsyncSyncKeepAlive',
+              child: ProductsPage(),
             ),
           ],
         ),
