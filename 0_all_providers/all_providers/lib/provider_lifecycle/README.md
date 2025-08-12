@@ -29,6 +29,16 @@
 
 ## LifeCycle Test
 ### 1, keepAlive: false (AutoDispose)
+AutoDispose일 때 lifecycle
+`ref.watch(autoDisposeCoutner)`를 통해서  initialized되고 listener가 추가된다. 
+화면을 나가게되면 listener가 해제되고 provider가 cancel, dispose 된다.
+```
+I/flutter (19199): [AutoDisposeCounter] initialized
+I/flutter (19199): [AutoDisposeCounter] listener added
+I/flutter (19199): [AutoDisposeCounter] listener removed
+I/flutter (19199): [AutoDisposeCounter] cancelled
+I/flutter (19199): [AutoDisposeCounter] disposed
+```
 
 ### 2. keepAlive: true
 
