@@ -139,7 +139,19 @@ class MyHomePage extends StatelessWidget {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) => const ProviderLifecycleScreen(),));
                     },
-                    child: const Text("Lecture #1 Provider")
+                    child: const Text("Lecture #1 Provider Lifecycles")
+                ),
+              ],
+            ),
+            ExpansionTile(
+              title: const Text("Provider Observer", style: TextStyle(fontSize: 24.0),),
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const ProviderObserverScreen(),));
+                    },
+                    child: const Text("Lecture #1 Provider Observer")
                 ),
               ],
             ),
