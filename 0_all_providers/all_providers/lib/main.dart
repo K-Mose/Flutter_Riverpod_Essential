@@ -1,5 +1,7 @@
 import 'package:all_providers/async_value/weather_app/home.dart';
 import 'package:all_providers/provider_lifecycle/home.dart';
+import 'package:all_providers/provider_observer/home.dart';
+import 'package:all_providers/provider_observer/observeer/logger.dart';
 import 'package:all_providers/providers/async_notifier_provider/home.dart';
 import 'package:all_providers/providers/change_notifier_provider/home.dart';
 import 'package:all_providers/providers/future_provider/home.dart';
@@ -9,11 +11,17 @@ import 'package:all_providers/providers/state_notifier_provider/home.dart';
 import 'package:all_providers/providers/state_provider/state_provider_screen.dart';
 import 'package:all_providers/providers/strean_notifier_provider/home.dart';
 import 'package:all_providers/providers/strem_provider/home.dart';
+import 'package:all_providers/riverpod_lint/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    ProviderScope(
+      observers: [Logger()],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -144,6 +152,18 @@ class MyHomePage extends StatelessWidget {
               ],
             ),
             ExpansionTile(
+              title: const Text("Riverpod Lint", style: TextStyle(fontSize: 24.0),),
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const RiverpodLintScreen(),));
+                    },
+                    child: const Text("Lecture #1 RiverpodLint")
+                ),
+              ],
+            ),
+            ExpansionTile(
               title: const Text("Provider Observer", style: TextStyle(fontSize: 24.0),),
               children: [
                 ElevatedButton(
@@ -152,6 +172,18 @@ class MyHomePage extends StatelessWidget {
                         builder: (context) => const ProviderObserverScreen(),));
                     },
                     child: const Text("Lecture #1 Provider Observer")
+                ),
+              ],
+            ),
+            ExpansionTile(
+              title: const Text("Pagination With Provider", style: TextStyle(fontSize: 24.0),),
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => const ProviderObserverScreen(),));
+                    },
+                    child: const Text("Lecture #1 Pagination With Provider")
                 ),
               ],
             ),

@@ -40,6 +40,10 @@ dependencies:
   json_annotation: ^4.9.0
   bulleted_list: ^0.0.1+0.1a
 
+  # pagination
+  number_paginator: ^1.1.1
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

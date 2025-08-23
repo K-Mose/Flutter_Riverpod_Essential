@@ -1,18 +1,26 @@
-# https://codewithandrea.com/tips/speed-up-code-generation-build-runner-dart-flutter/
-# https://pub.dev/packages/riverpod_generator#global-configuration
-# https://github.com/rrousselGit/riverpod/blob/master/packages/riverpod_generator/build.yaml
-#targets:
-#  $default:
-#    builders:
-#      freezed:freezed:
-#        generate_for:
-#          include:
-#            - lib/async_value/weather_app/**.dart
-#      riverpod_generator:
-#        enabled: true
-#        generate_for:
-#          exclude:
-#            - test
-#            - example
-#          include:
+# 혹은 --build-filter="lib/path/**" 옵션으로 해당 위치만 업데이트 할 수 있다.
+# dart run build_runner build --build-filter=lib\pagination\num_pagination\pages\product\**
+# 빌드 옵션 우선순위 build.yaml > --build-filter
+
+## https://codewithandrea.com/tips/speed-up-code-generation-build-runner-dart-flutter/
+## https://pub.dev/packages/riverpod_generator#global-configuration
+## https://github.com/rrousselGit/riverpod/blob/master/packages/riverpod_generator/build.yaml
+targets:
+  $default:
+    builders:
+      freezed|freezed:
+        generate_for:
+          include:
+            - lib/**
+#            - lib/pagination/**/**.dart
+      riverpod_generator:
+        enabled: true
+        generate_for:
+          exclude:
+            - test
+            - example
+          include:
+            - lib/**
+#            - lib/pagination/**/**.dart
+#            - lib/provider_lifecycle/**/**.dart
 #            - lib/async_value/weather_app/**.dart
